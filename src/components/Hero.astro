@@ -1,0 +1,118 @@
+---
+import { Image } from 'astro:assets';
+import { SITE } from '../config/site';
+import fotoSede from '../assets/hero-uai.jpg';
+
+interface Props {
+  total: number;
+  individuales: number;
+  grupales: number;
+}
+
+const { total, individuales, grupales } = Astro.props;
+
+const datos = [
+  { etiqueta: 'Asignatura', valor: SITE.materia },
+  { etiqueta: 'Universidad', valor: SITE.universidad },
+  { etiqueta: 'Docente', valor: SITE.docente },
+  { etiqueta: 'Cursada', valor: SITE.cuatrimestre },
+];
+
+const stats = [
+  { valor: total, texto: 'trabajos prácticos' },
+  { valor: individuales, texto: 'individuales' },
+  { valor: grupales, texto: 'grupales' },
+];
+---
+
+<section id="inicio" class="relative overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-28">
+  <!-- Fondo decorativo -->
+  <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+    <div
+      class="absolute -top-40 left-1/2 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full bg-acento-400/15 blur-3xl dark:bg-acento-600/30"
+    >
+    </div>
+    <div
+      class="absolute inset-0 bg-[linear-gradient(to_right,rgb(0_0_0/0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgb(0_0_0/0.04)_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_70%)] dark:bg-[linear-gradient(to_right,rgb(255_255_255/0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgb(255_255_255/0.05)_1px,transparent_1px)]"
+    >
+    </div>
+  </div>
+
+  <div class="mx-auto max-w-6xl px-6">
+    <div class="grid items-center gap-12 lg:grid-cols-2">
+      <div>
+        <p
+          class="inline-flex items-center gap-2 rounded-full border border-acento-500/30 bg-acento-500/10 px-3 py-1 text-xs font-medium text-acento-600 dark:text-acento-300"
+        >
+          <span class="size-1.5 rounded-full bg-uai-oro"></span>
+          Portfolio académico · {SITE.cuatrimestre}
+        </p>
+
+        <h1 class="mt-6 max-w-3xl text-4xl font-extrabold tracking-tight text-balance text-zinc-900 sm:text-5xl xl:text-6xl dark:text-white">
+          {SITE.materia}
+        </h1>
+
+        <p class="mt-4 text-xl text-zinc-600 sm:text-2xl dark:text-zinc-400">
+          por <span class="font-semibold text-zinc-900 dark:text-zinc-100">{SITE.autor}</span>
+        </p>
+
+        <p class="mt-6 max-w-2xl text-lg leading-relaxed text-pretty text-zinc-600 dark:text-zinc-400">
+          {SITE.descripcion}
+        </p>
+
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a
+            href="#trabajos"
+            class="rounded-xl bg-acento-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-acento-600/25 transition hover:bg-acento-500"
+          >
+            Ver trabajos prácticos
+          </a>
+          <a
+            href="#sobre-mi"
+            class="rounded-xl border border-zinc-300 px-5 py-3 text-sm font-semibold text-zinc-800 transition hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-200 dark:hover:bg-zinc-900"
+          >
+            Sobre mí
+          </a>
+      </div>
+      </div>
+
+      <figure class="relative isolate">
+        <div class="absolute -inset-2 -z-10 rotate-1 rounded-3xl sm:-inset-3 sm:rotate-2 bg-gradient-to-br from-acento-600 to-acento-400 opacity-80" aria-hidden="true"></div>
+        <Image
+          src={fotoSede}
+          alt={`Edificio de la ${SITE.universidad}`}
+          widths={[480, 800, 1200]}
+          sizes="(min-width: 1024px) 560px, 100vw"
+          loading="eager"
+          fetchpriority="high"
+          class="aspect-[4/3] w-full rounded-2xl object-cover shadow-2xl ring-1 ring-black/10"
+        />
+        <figcaption class="absolute bottom-3 left-3 rounded-lg bg-black/60 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-sm">
+          {SITE.universidad}
+        </figcaption>
+      </figure>
+    </div>
+
+    <dl class="mt-14 grid gap-px overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-200 sm:grid-cols-2 lg:grid-cols-4 dark:border-zinc-800 dark:bg-zinc-800">
+      {
+        datos.map(({ etiqueta, valor }) => (
+          <div class="bg-white p-5 dark:bg-zinc-950">
+            <dt class="text-xs font-medium tracking-wide text-zinc-500 uppercase">{etiqueta}</dt>
+            <dd class="mt-1 text-sm font-semibold text-zinc-900 dark:text-zinc-100">{valor}</dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <ul class="mt-8 flex flex-wrap gap-x-10 gap-y-4">
+      {
+        stats.map(({ valor, texto }) => (
+          <li class="flex items-baseline gap-2">
+            <span class="text-3xl font-bold text-zinc-900 tabular-nums dark:text-white">{valor}</span>
+            <span class="text-sm text-zinc-500">{texto}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

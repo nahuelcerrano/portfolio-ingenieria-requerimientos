@@ -1,0 +1,74 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import TrabajoCard from './TrabajoCard.astro';
+
+interface Props {
+  trabajos: CollectionEntry<'trabajos'>[];
+}
+
+const { trabajos } = Astro.props;
+
+const filtros = [
+  { valor: 'todos', texto: 'Todos', cantidad: trabajos.length },
+  { valor: 'individual', texto: 'Individuales', cantidad: trabajos.filter((t) => t.data.modalidad === 'individual').length },
+  { valor: 'grupal', texto: 'Grupales', cantidad: trabajos.filter((t) => t.data.modalidad === 'grupal').length },
+];
+---
+
+<section id="trabajos" class="border-t border-zinc-200 py-20 sm:py-28 dark:border-zinc-800">
+  <div class="mx-auto max-w-6xl px-6">
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <div class="max-w-2xl">
+        <h2 class="text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl dark:text-white">Trabajos prácticos</h2>
+        <p class="mt-3 text-zinc-600 dark:text-zinc-400">
+          Todas las producciones de la cursada, en orden. Cada una indica si fue individual o grupal y, en ese
+          caso, quiénes la hicieron. Hacé clic en una tarjeta para ver el trabajo completo.
+        </p>
+      </div>
+
+      <div class="flex gap-1 rounded-xl border border-zinc-200 p-1 dark:border-zinc-800" role="group" aria-label="Filtrar por modalidad">
+        {
+          filtros.map(({ valor, texto, cantidad }, i) => (
+            <button
+              type="button"
+              data-filtro={valor}
+              aria-pressed={i === 0 ? 'true' : 'false'}
+              class="rounded-lg px-3 py-1.5 text-sm text-zinc-600 transition-colors hover:text-zinc-900 aria-pressed:bg-acento-600 aria-pressed:text-white dark:text-zinc-400 dark:hover:text-zinc-100"
+            >
+              {texto} <span class="opacity-60">{cantidad}</span>
+            </button>
+          ))
+        }
+      </div>
+    </div>
+
+    {
+      trabajos.length > 0 ? (
+        <div id="grilla-trabajos" class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {trabajos.map((trabajo) => (
+            <TrabajoCard trabajo={trabajo} />
+          ))}
+        </div>
+      ) : (
+        <p class="mt-12 rounded-2xl border border-dashed border-zinc-300 p-10 text-center text-zinc-500 dark:border-zinc-700">
+          Todavía no hay trabajos cargados.
+        </p>
+      )
+    }
+  </div>
+</section>
+
+<script>
+  const botones = document.querySelectorAll<HTMLButtonElement>('[data-filtro]');
+  const tarjetas = document.querySelectorAll<HTMLElement>('#grilla-trabajos [data-modalidad]');
+
+  botones.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const filtro = btn.dataset.filtro;
+      botones.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+      tarjetas.forEach((card) => {
+        card.hidden = filtro !== 'todos' && card.dataset.modalidad !== filtro;
+      });
+    });
+  });
+</script>

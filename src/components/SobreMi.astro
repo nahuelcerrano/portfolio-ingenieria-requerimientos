@@ -1,0 +1,68 @@
+---
+import { SITE } from '../config/site';
+
+// Editá estos textos libremente
+const habilidades = ['C#', '.NET', 'React', 'Astro', 'Tailwind CSS', 'SQL', 'Patrones de diseño', 'Arquitectura en capas'];
+
+const temasMateria = [
+  'Elicitación de requerimientos (entrevistas, juego de roles con IA)',
+  'Léxico Extendido del Lenguaje (LEL) y glosarios',
+  'Especificación SRS (IEEE 830 / ISO 29148)',
+  'User stories, casos de uso y escenarios',
+];
+---
+
+<section id="sobre-mi" class="border-t border-zinc-200 py-20 sm:py-28 dark:border-zinc-800">
+  <div class="mx-auto grid max-w-6xl gap-12 px-6 lg:grid-cols-5">
+    <div class="lg:col-span-3">
+      <h2 class="text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl dark:text-white">Sobre mí</h2>
+
+      <div class="mt-6 space-y-4 text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
+        <p>
+          Soy <strong class="text-zinc-900 dark:text-zinc-100">{SITE.autor}</strong>, estudiante de {SITE.carrera} en la {SITE.universidad}.
+          Me presento como desarrollador full stack, con un interés
+          creciente por la programación de bajo nivel y la arquitectura de computadoras.
+        </p>
+        <p>
+          Además, soy pasante de investigación en el Laboratorio de Robótica e Inteligencia Artificial del CAETI –
+          UAI, donde trabajo en robótica bípeda y en el salto entre simulación y mundo real.
+        </p>
+        <p>
+          Este sitio reúne lo que produje en {SITE.materia}: la materia donde aprendí que antes de escribir una
+          línea de código hay que entender bien qué problema se quiere resolver y para quién.
+        </p>
+      </div>
+
+      <ul class="mt-8 flex flex-wrap gap-2" aria-label="Habilidades">
+        {
+          habilidades.map((h) => (
+            <li class="rounded-lg border border-zinc-200 px-3 py-1 text-sm text-zinc-700 dark:border-zinc-800 dark:text-zinc-300">
+              {h}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <aside class="rounded-2xl border border-zinc-200 bg-zinc-50 p-6 lg:col-span-2 dark:border-zinc-800 dark:bg-zinc-900/50">
+      <h3 class="font-semibold text-zinc-900 dark:text-zinc-100">Qué vas a encontrar</h3>
+      <ul class="mt-4 space-y-3">
+        {
+          temasMateria.map((tema) => (
+            <li class="flex gap-3 text-sm text-zinc-600 dark:text-zinc-400">
+              <svg class="mt-0.5 size-4 shrink-0 text-acento-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 6 9 17l-5-5"></path>
+              </svg>
+              {tema}
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="mt-6 border-t border-zinc-200 pt-6 text-sm dark:border-zinc-800">
+        <p class="text-zinc-500">Docente</p>
+        <p class="font-medium text-zinc-900 dark:text-zinc-100">{SITE.docente}</p>
+      </div>
+    </aside>
+  </div>
+</section>

@@ -1,0 +1,52 @@
+---
+import '../styles/global.css';
+import { SITE } from '../config/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = `${SITE.materia} · ${SITE.autor}`, description = SITE.descripcion } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="author" content={SITE.autor} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+
+    <!-- Aplica el tema antes de pintar para evitar el parpadeo. Oscuro por defecto. -->
+    <script is:inline>
+      (() => {
+        let tema = 'dark';
+        try {
+          tema = localStorage.getItem('tema') ?? 'dark';
+        } catch {}
+        document.documentElement.classList.toggle('dark', tema === 'dark');
+      })();
+    </script>
+  </head>
+  <body
+    class="min-h-dvh bg-white font-sans text-zinc-800 antialiased transition-colors duration-300 dark:bg-zinc-950 dark:text-zinc-200"
+  >
+    <slot />
+
+    <script>
+      // Botones con [data-toggle-tema] alternan claro/oscuro
+      document.querySelectorAll<HTMLButtonElement>('[data-toggle-tema]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const oscuro = document.documentElement.classList.toggle('dark');
+          try {
+            localStorage.setItem('tema', oscuro ? 'dark' : 'light');
+          } catch {}
+        });
+      });
+    </script>
+  </body>
+</html>

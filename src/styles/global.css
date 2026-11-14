@@ -1,0 +1,42 @@
+@import "tailwindcss";
+@import "@fontsource-variable/montserrat";
+@plugin "@tailwindcss/typography";
+
+/* Modo oscuro controlado por la clase .dark en <html> */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Tipografía institucional (Manual de Marca UAI): Montserrat */
+  --font-sans: "Montserrat Variable", ui-sans-serif, system-ui, sans-serif;
+
+  /* Paleta principal UAI (Manual de Marca, pág. 15) */
+  --color-acento-300: #f0789f; /* tinte claro del rosa, para texto chico sobre fondo oscuro */
+  --color-acento-400: #d50851; /* rosa UAI */
+  --color-acento-500: #9f0f3e; /* bordó medio */
+  --color-acento-600: #881230; /* bordó institucional */
+  --color-acento-700: #661125; /* bordó oscuro */
+
+  /* Paleta secundaria UAI (pág. 16) */
+  --color-uai-oro: #fbb03b;
+  --color-uai-azul: #245a98;
+  --color-uai-violeta: #93278f;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Que el navbar fijo no tape el título de cada sección al navegar con anclas */
+section[id] {
+  scroll-margin-top: 5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+/* Sin comillas automáticas en los blockquote del contenido de los TPs */
+.prose blockquote p:first-of-type::before,
+.prose blockquote p:last-of-type::after {
+  content: none;
+}
