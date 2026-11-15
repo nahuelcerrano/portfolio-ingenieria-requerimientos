@@ -100,4 +100,4 @@ Actualmente el área de finanzas tiene varios problemas con su sistema porque es
 | **RNF-07** | Nivel de Servicio              | El servicio de soporte técnico debe dar respuestas rápidas y seguimiento continuo a los reclamos sin frenar la operación diaria                                                           | Media         | Los tickets reportados reciben atención y respuesta dentro del plazo máximo acordado con la empresa                                                           |
 
 
-Viene de la [Entrevista con IA I](/trabajos/entrevista-ia-1-ceo/).
+Viene de la [Entrevista con IA I](/trabajos/entrevista-ia-1-ceo/) · Continúa en la [Entrevista con IA III](/trabajos/entrevista-ia-3/).
